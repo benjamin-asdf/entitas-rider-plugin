@@ -1,0 +1,36 @@
+# -*- mode: restclient; url-max-redirections: 0 -*-
+
+
+
+GET http://localhost:33243/status
+
+
+GET http://localhost:33243/ask-comps/UniqueComponent|Foo
+
+GET http://localhost:33243/ask-comps/UniqueComponent|FlagComponent
+
+
+GET http://localhost:33243/ask-comps/UniqueComp
+
+
+POST http://localhost:33243/comps
+Content-Type: application/json
+
+{
+    "UniqueComponent" : ["fooba", "hurr", "bamba"],
+    "FlagComponent" : ["MyFlagComplul"]
+}
+
+
+
+
+# POST http://localhost:33243/log
+# Content-Type: text/plain
+# "Hello!"
+
+POST http://localhost:33243/comps
+Content-Type: application/json
+
+{
+    "Foo" : ["babb", "hurr"]
+}

@@ -1,0 +1,12 @@
+<templateSet group="IdleGame">
+  <template name="trace-method"
+            value="$TITLE$"
+            description="Add logs method in-> <-out"
+            toReformat="true"
+            toShortenFQNames="false">
+      <!-- <variable name="TITLE" expression="titleCase(SELECTION)" defaultValue="the quick brown fox" alwaysStopAt="true" /> -->
+    <context>
+      <option name="C#METHOD" value="true" />
+    </context>
+  </template>
+</templateSet>

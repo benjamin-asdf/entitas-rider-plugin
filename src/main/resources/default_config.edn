@@ -1,0 +1,193 @@
+{:completion/table
+ [
+  #:completion{
+               ;; a regex for stuff before your caret
+               ;; you usually want to put a capture group at the end
+               ;; it represents the part of the completion you already typed
+               :prefix #"(?i)\.state\.get@(\w+)?$"
+
+               ;; the components types
+               :names [:UniqueComponent]
+
+               ;;     valid values:
+               ;;     :UniqueComponent
+               ;;     :UniqueFlagComponent
+               ;;     :Component
+               ;;     :FlagComponent
+               ;;     :PrimaryIndexComponent
+               ;;     :IndexComponent
+               ;;     :any
+
+               ;; a java format string for what gets inserted
+               ;; use %s for the comp,  %1$s
+               ;; if you want the completion multiple times in the string
+               ;; this string can be arbitrary long, so you can put snippets
+               ;; here with component completion
+               :insert-fmt ".state.Get<%s>().value"}
+
+  ;; example (comment in)
+
+  ;; #:completion{:prefix #"(?i)gse<@(\w+)?$"
+  ;;              :names [:any]
+  ;;              :insert-fmt "state.GetSingleEntity<%s>()"}
+
+  ;; another one to insert Matcher.AllOf
+  #:completion{:prefix #"mall@(\w+)?$"
+               :names [:any]
+               :insert-fmt "Matcher.AllOf<%s>()"}
+
+  #:completion{:prefix #"(?i)\.state\.add@(\w+)?$"
+               :names [:UniqueComponent]
+               :insert-fmt ".state.Add<%s>()"}
+  #:completion{:prefix #"(?i)\.state\.has@(\w+)?$"
+               :names [:UniqueComponent]
+               :insert-fmt ".state.Has<%s>()"}
+  #:completion{:prefix #"(?i)\.state\.set@(\w+)?$"
+               :names [:UniqueFlagComponent]
+               :insert-fmt ".state.Set<%s>()"}
+  #:completion{:prefix #"(?i)\.state\.is@(\w+)?$"
+               :names [:UniqueFlagComponent]
+               :insert-fmt ".state.Is<%s>()"}
+  #:completion{:prefix #"(?i)\.set@(\w+)?$"
+               :names [:UniqueFlagComponent :FlagComponent]
+               :insert-fmt ".Set<%s>()"}
+  #:completion{:prefix #"(?i)\.is@(\w+)?$"
+               :names [:UniqueFlagComponent :FlagComponent]
+               :insert-fmt ".Is<%s>()"}
+  #:completion{:prefix #"(?i)\.add@(\w+)?$"
+               :names
+               [:UniqueComponent
+                :Component
+                :IndexComponent
+                :PrimaryIndexComponent]
+               :insert-fmt ".Add<%s>()"}
+  #:completion{:prefix #"(?i)\.get@(\w+)?$"
+               :names
+               [:UniqueComponent
+                :Component
+                :IndexComponent
+                :PrimaryIndexComponent]
+               :insert-fmt ".Get<%s>()"}
+  #:completion{:prefix #"(?i)GetEntityWith@(\w+)?$"
+               :names [:PrimaryIndexComponent]
+               :insert-fmt "GetEntityWith<%s>()"}
+  #:completion{:prefix #"(?i)gew@(\w+)?$"
+               :names [:PrimaryIndexComponent]
+               :insert-fmt "c.state.GetEntityWith<%s>()"}
+  #:completion{:prefix #"(?i)GetEntitiesWith@(\w+)?$"
+               :names [:IndexComponent]
+               :insert-fmt "GetEntitiesWith<%s>()"}
+  #:completion{:prefix #"(?i)geww@(\w+)?$"
+               :names [:IndexComponent]
+               :insert-fmt "c.state.GetEntitiesWith<%s>()"}
+  #:completion{:prefix #"react@(\w+)?$"
+               :names [:any]
+               :insert-fmt
+               "AddReactEach(Matcher.AllOf<%s>(), e => {\n            });"}
+  #:completion{:prefix #"<@(\w+)?$", :names [:any] :insert-fmt "%s"}]
+
+ ;; the color of the completion elements in the popup
+ :completion/colors
+ {:UniqueComponent "#F689FF"
+  :UniqueFlagComponent "#a1fe9a"
+  :Component "#8fcefe"
+  :FlagComponent "#C5ff00"
+  :PrimaryIndexComponent "#b48ffe"
+  :IndexComponent "#feb48f"}
+
+
+ :action/searches
+
+ ;; the order of the elements here are the order in the popup
+ ;; do not forget you can make changes and even add actions here,
+ ;; then just reload your config. No restart needed.
+ [
+  #:action
+  {
+
+   ;; optional id that works with ideavim
+   ;; recommended to use a fully qualified name
+   ;; so there are no clashes with other actions
+   ;; only put words and dots in this string
+   :id "ideaidle.compsearch.get.value"
+
+   ;; required text of the action in the popup
+   :display-text "Search component Get"
+
+   ;; like saying :search-fmt witha a few <%s> | <%s> ...
+   :generic-inv-search ["Get" "Is" "Has"]
+
+
+   }
+
+  ;; example custom search (comment in)
+
+  ;; #:action
+  ;; {:id "jakob.search.todo"
+  ;;  :display-text "Jakob todo"
+  ;;  :search-fmt
+  ;;  "jakob todo ((?!UI)|(WAIT)|(DESIGN))"}
+
+  #:action
+  {:id "ideaidle.search.whoreacts"
+   :display-text "Who reacts"
+
+   ;; the more general form:
+
+   ;; :search-fmt "mysearchregex"
+
+   ;; this string can have a format argument
+   ;; which will be replaced with either the word
+   ;; on your cursor, or the selected text
+
+   :search-fmt "AddReactEach.+Matcher.+%s"}
+
+  #:action
+  {:id "ideaidle.compsearch.set"
+   :display-text "Search component Set"
+   :generic-inv-search ["Add" "Set" "Replace"]}
+  #:action
+  {:id "ideaidle.compsearch.get.generic"
+   :display-text "Search component Get Generic"
+   :generic-inv-search
+   ["RemoveComponent"
+    "RemoveFromEntity"
+    "RemoveComponentFromEntity"
+    "Decrement"
+    "Increment"
+    "RemoveFromEntities"
+    "RemoveComponentFromEntities"
+    "FlagEntities"
+    "RemoveFromAllEntities"
+    "ToggleFlag"
+    "RemoveIndexFromEntitiesWith"
+    "RemoveIndexFromEntityWith"
+    "DestroyEntityWith"
+    "GetNextIndex"
+    "ReassignIndices"
+    "AssignIndices"
+    "AddGroup"
+    "AddUniqueEntity"
+    "GetValueOrDefault"
+    "DestroyAll"
+    "DestroyAllSafe"
+    "DestroyWhere"
+    "RemoveComponentSafeAll"
+    "RemoveComponentsSafeAll"
+    "OverwriteSingleEntity"
+    "Any"
+    "TryGetAny"
+    "Count"
+    "GetOrAdd"
+    "GetOrCreate"
+    "Touch"
+    "ReplaceIfChanged"
+    "DestroyEntitiesWith"
+    "TryGetEntity"
+    "TryGet"
+    "TryGetValue"
+    "GetOrAddSingleEntity"
+    "ReplaceSingleEntity"
+    "TryGetEntityWith"
+    "TryCopyTo"]}]
+ :config/ideaidle-home "/fix/the/path"}

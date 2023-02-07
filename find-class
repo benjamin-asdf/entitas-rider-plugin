@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+
+
+cd ../ideaidle/idea-ce-install/lib/
+
+for i in *.jar; do jar -tvf "$i" | grep -Hsi "$1" && echo "$i"; done

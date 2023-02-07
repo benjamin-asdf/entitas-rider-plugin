@@ -1,0 +1,85 @@
+<idea-plugin>
+    <id>com.github.benjaminasdf.ideaidle</id>
+    <name>IdeaIdle</name>
+    <vendor>benjamin-asdf</vendor>
+
+    <!-- Product and plugin compatibility requirements -->
+    <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <!-- <depends>com.intellij.modules.rider</depends> -->
+    <depends>com.intellij.modules.platform</depends>
+
+
+  <applicationListeners>
+    <listener class="com.github.benjaminasdf.ideaidle.listeners.MyProjectManagerListener"
+              topic="com.intellij.openapi.project.ProjectManagerListener"/>
+  </applicationListeners>
+
+    <extensions defaultExtensionNs="com.intellij">
+
+
+        <completion.contributor language="JAVA" implementationClass="com.github.benjaminasdf.idlelib.completion.MyCompletionContributor" order="first"/>
+        <completion.contributor language="C#" implementationClass="com.github.benjaminasdf.idlelib.completion.MyCompletionContributor"  order="first"/>
+
+        <projectService serviceImplementation="com.github.benjaminasdf.ideaidle.services.MyProjectService"/>
+
+        <!-- <defaultLiveTemplates file="/liveTemplates/IdleGame.xml"/> -->
+        <!--      <liveTemplateContext implementation="com.github.benjaminasdf.ideaidle.livetemplates.MethodContext"/> -->
+        <!--      <liveTemplateMacro implementation="com.github.benjaminasdf.ideaidle.livetemplates.AddMethodTraceLog"/> -->
+
+
+        <!-- <intentionAction> -->
+        <!--     <className>com.github.benjaminasdf.ideaidle.intention.TraceLogIntention</className> -->
+        <!--     <category>Transform intention category</category> -->
+        <!-- </intentionAction> -->
+
+
+        <!-- <lang.parserDefinition language="Simple" implementationClass="org.intellij.sdk.language.SimpleParserDefinition"/>
+             <lang.syntaxHighlighterFactory language="Simple"
+             implementationClass="org.intellij.sdk.language.SimpleSyntaxHighlighterFactory"/>
+             <colorSettingsPage implementation="org.intellij.sdk.language.SimpleColorSettingsPage"/>
+             <annotator language="JAVA" implementationClass="org.intellij.sdk.language.SimpleAnnotator"/>
+             <codeInsight.lineMarkerProvider language="JAVA"
+             implementationClass="org.intellij.sdk.language.SimpleLineMarkerProvider"/>
+             <completion.contributor language="Simple"
+             implementationClass="org.intellij.sdk.language.SimpleCompletionContributor"/>
+             <psi.referenceContributor language="JAVA"
+             implementation="org.intellij.sdk.language.SimpleReferenceContributor"/>
+             <lang.refactoringSupport language="Simple"
+             implementationClass="org.intellij.sdk.language.SimpleRefactoringSupportProvider"/>
+             <lang.findUsagesProvider language="Simple"
+             implementationClass="org.intellij.sdk.language.SimpleFindUsagesProvider"/>
+             <lang.foldingBuilder language="JAVA" implementationClass="org.intellij.sdk.language.SimpleFoldingBuilder"/>
+             <gotoSymbolContributor implementation="org.intellij.sdk.language.SimpleChooseByNameContributor"/>
+             <lang.psiStructureViewFactory language="Simple"
+             implementationClass="org.intellij.sdk.language.SimpleStructureViewFactory"/>
+             <lang.formatter language="Simple" implementationClass="org.intellij.sdk.language.SimpleFormattingModelBuilder"/>
+             <codeStyleSettingsProvider implementation="org.intellij.sdk.language.SimpleCodeStyleSettingsProvider"/>
+             <langCodeStyleSettingsProvider implementation="org.intellij.sdk.language.SimpleLanguageCodeStyleSettingsProvider"/>
+             <lang.commenter language="Simple" implementationClass="org.intellij.sdk.language.SimpleCommenter"/>
+             <lang.documentationProvider language="Simple" implementationClass="org.intellij.sdk.language.SimpleDocumentationProvider"/>
+        -->
+
+
+
+    </extensions>
+
+    <actions>
+        <action class="com.github.benjaminasdf.ideaidle.actions.CompSearchActionStub"
+                id="com.github.benjaminasdf.idlelib.compsearchActions.CompsearchActions"
+		text="IdeaIdle search actions menu"
+                description="Open CompSearches">
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="U"/>
+        </action>
+
+        <action class="com.github.benjaminasdf.ideaidle.actions.IdleActionsStub"
+                id="com.github.benjaminasdf.idlelib.idleactions.IdleActions"
+                text="IdeaIdle actions menu"
+		description="IdeaIdle actions menu">
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl L" second-keystroke="L"/>
+        </action>
+
+
+    </actions>
+
+
+</idea-plugin>
